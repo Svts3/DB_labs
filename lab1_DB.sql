@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `tsar`.`emergency_phone_number` (
   `phone_number` VARCHAR(12) NOT NULL,
   `watch_serial_number` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE INDEX `phone_number_UNIQUE` (`phone_number` ASC) VISIBLE,
   INDEX `emergency_phone_number_watch` (`watch_serial_number` ASC) VISIBLE,
   CONSTRAINT `emergency_phone_number_watch`
     FOREIGN KEY (`watch_serial_number`)
