@@ -9,7 +9,7 @@ SELECT substring_index(name, ' ', -1) AS surname FROM passenger where substring(
 
 -- 3
 
-SELECT maker FROM product JOIN laptop ON product.type ='laptop' AND laptop.speed < 500;
+SELECT maker FROM product JOIN laptop ON product.model=laptop.model where product.type ='laptop' AND laptop.speed < 500;
 
 -- 4
 
