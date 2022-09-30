@@ -5,7 +5,7 @@ SELECT maker, type FROM product WHERE type='laptop' ORDER BY maker;
 
 -- 2
 
-SELECT substring_index(name, ' ', -1) AS surname FROM pASsenger where substring(substring_index(name, ' ', -1), 1, 1) != 'j';
+SELECT substring_index(name, ' ', -1) AS surname FROM passenger where substring(substring_index(name, ' ', -1), 1, 1) != 'j';
 
 -- 3
 
@@ -13,12 +13,12 @@ SELECT maker FROM product JOIN laptop ON product.type ='laptop' AND laptop.speed
 
 -- 4
 
-SELECT maker, type FROM product WHERE type = SOME (SELECT type FROM pc where type='pc' or type='laptop');
+SELECT maker FROM product WHERE type='pc' and maker = SOME (SELECT maker FROM product where type='laptop');
 
 -- 5
 
 SELECT maker, product.type, pc.speed FROM product JOIN pc ON product.model=pc.model where
- pc.speed = (SELECT max(speed) FROM pc) and type = SOME (SELECT type FROM pc where type='pc' or type='printer');
+ pc.speed = (SELECT max(speed) FROM pc) and type='pc' and maker = SOME (SELECT maker FROM product where type='printer');
 
 -- 6
 
