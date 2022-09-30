@@ -1,7 +1,7 @@
 use labor_sql;
 
 -- 1
-SELECT maker, type FROM product WHERE type='laptop' ORDER BY maker;
+SELECT distinct maker, type FROM product WHERE type='laptop' ORDER BY maker;
 
 -- 2
 
@@ -13,7 +13,7 @@ SELECT maker FROM product JOIN laptop ON product.model=laptop.model where produc
 
 -- 4
 
-SELECT maker FROM product WHERE type='pc' and maker = SOME (SELECT maker FROM product where type='laptop');
+SELECT distinct maker FROM product WHERE type='pc' and maker = SOME (SELECT maker FROM product where type='laptop');
 
 -- 5
 
@@ -33,14 +33,14 @@ SELECT DISTINCT maker, (SELECT COUNT(DISTINCT model) FROM pc WHERE model IN
 (SELECT model FROM product where maker=p.maker))pc,
 (SELECT COUNT(DISTINCT model) FROM laptop WHERE model IN (SELECT model FROM product where maker=p.maker)) laptop,
 (SELECT COUNT(DISTINCT model) FROM printer WHERE model IN (SELECT model FROM product where maker=p.maker)) printer
-FROM product AS p;
+FROM product AS pc;
 
 -- 9
 
 
 SELECT s.name, s.launched, clASses.clASs, clASses.type, clASses.country, clASses.numGuns, clASses.bore, clASses.displacement FROM ships AS s JOIN clASses ON s.clASs=clASses.clASs
 where
-	(CASE WHEN numGuns = 12 THEN 1 ELSE 0 END +
+	(CASE WHEN numGuns = 9 THEN 1 ELSE 0 END +
 	CASE WHEN bore = 16 THEN 1 ELSE 0 END +
 	CASE WHEN displacement = 46000 THEN 1 ELSE 0 END +
 	CASE WHEN type = 'bb' THEN 1 ELSE 0 END +
@@ -50,11 +50,11 @@ where
 
 -- 10
 
-SELECT product.model, price FROM product, pc
+SELECT product.model, price,product.type,product.maker FROM product, pc
 WHERE product.model = pc.model AND maker = 'B'
 UNION
-SELECT product.model, price FROM product, laptop
+SELECT product.model, price,product.type,product.maker FROM product, laptop
 WHERE product.model = laptop.model AND maker = 'B'
 UNION
-SELECT product.model, price FROM product, printer
+SELECT product.model, price, product.type,product.maker FROM product, printer
 WHERE product.model = printer.model AND maker = 'B';
