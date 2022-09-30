@@ -26,15 +26,13 @@ SELECT DATE_FORMAT(date, "%d.%m.%Y") AS date FROM income;
 
 -- 7
 
-SELECT COUNT(*) AS quantity, ROUND(AVG(price)) AS average_price FROM pc where price < 800 GROUP BY pc.model;
-
-SELECT COUNT(*) AS quantity, ROUND(AVG(price)) AS average_price FROM pc where price < 800 GROUP BY pc.model;
+SELECT COUNT(*) AS quantity, ROUND(AVG(price)) AS average_price FROM pc GROUP BY pc.model HAVING AVG(price) < 800 ;
 -- 8
 
-SELECT DISTINCT maker, (SELECT COUNT(model) FROM pc WHERE model IN 
+SELECT DISTINCT maker, (SELECT COUNT(DISTINCT model) FROM pc WHERE model IN 
 (SELECT model FROM product where maker=p.maker))pc,
-(SELECT COUNT(model) FROM laptop WHERE model IN (SELECT model FROM product where maker=p.maker)) laptop,
-(SELECT COUNT(model) FROM printer WHERE model IN (SELECT model FROM product where maker=p.maker)) printer
+(SELECT COUNT(DISTINCT model) FROM laptop WHERE model IN (SELECT model FROM product where maker=p.maker)) laptop,
+(SELECT COUNT(DISTINCT model) FROM printer WHERE model IN (SELECT model FROM product where maker=p.maker)) printer
 FROM product AS p;
 
 -- 9
@@ -51,8 +49,12 @@ where
 	CASE WHEN country = 'Japan' THEN 1 ELSE 0 END ) = 3;
 
 -- 10
-SELECT code FROM product JOIN pc ON product.model=pc.model WHERE product.maker='b'
+
+SELECT product.model, price FROM product, pc
+WHERE product.model = pc.model AND maker = 'B'
 UNION
-SELECT code FROM product JOIN printer ON product.model=printer.model WHERE product.maker='b'
+SELECT product.model, price FROM product, laptop
+WHERE product.model = laptop.model AND maker = 'B'
 UNION
-SELECT code FROM product JOIN laptop ON product.model=laptop.model WHERE product.maker='b';
+SELECT product.model, price FROM product, printer
+WHERE product.model = printer.model AND maker = 'B';
