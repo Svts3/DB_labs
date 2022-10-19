@@ -1,7 +1,7 @@
 
-drop database if exists test;
-create database if not exists test;
-use test;
+drop database if exists lab4;
+create database if not exists lab4;
+use lab4;
 
 DROP TABLE IF EXISTS health_info;
 DROP TABLE IF EXISTS watch_location;
