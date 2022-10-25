@@ -885,9 +885,7 @@ public class View {
     private void outputMenu() {
         System.out.println("\nMENU:");
         for (String key : menu.keySet()) {
-            //if (key.length() == 1) {
                 System.out.println(menu.get(key));
-            //}
         }
     }
 
@@ -905,21 +903,23 @@ public class View {
         String keyMenu;
         do {
             outputMenu();
-            System.out.println("Please, select menu point:");
+            System.out.println("Please, select menu point.");
             keyMenu = scanner.nextLine().toUpperCase();
 
             if (keyMenu.matches("^\\d")) {
                 outputSubMenu(keyMenu);
-                System.out.println("Please, select menu point:");
+                System.out.println("Please, select menu point.");
                 keyMenu = scanner.nextLine().toUpperCase();
             }
 
             try {
                 menuMethods.get(keyMenu).print();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e);
             }
         } while (!keyMenu.equals("Q"));
     }
+    
+    
     
 }
