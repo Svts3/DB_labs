@@ -22,10 +22,10 @@ public class UserDaoImpl implements UserDao {
     private final String FIND_BY_LAST_NAME = "SELECT * FROM user where last_name=?";
 
     private final String CREATE = "INSERT INTO user(first_name, last_name, date_of_birth,"
-            + " gender) VALUES(?,?,?,?)";
+            + " gender, property_info_id) VALUES(?,?,?,?,?)";
 
     private final String UPDATE = "UPDATE user SET first_name=?, last_name=?,"
-            + " date_of_birth=?, gender=? WHERE id=?";
+            + " date_of_birth=?, gender=?, property_info_id=? WHERE id=?";
     private final String DELETE = "DELETE FROM user WHERE id=?";
 
     private JdbcTemplate jdbcTemplate;
@@ -42,20 +42,22 @@ public class UserDaoImpl implements UserDao {
     }
 
     public Optional<User> findById(Long id) {
-        return jdbcTemplate.query(FIND_BY_ID, new BeanPropertyRowMapper().newInstance(User.class))
-                .stream().findAny();
+        return jdbcTemplate
+                .query(FIND_BY_ID, new BeanPropertyRowMapper().newInstance(User.class), id).stream()
+                .findAny();
     }
 
     @Override
     public int save(User entity) {
-        return jdbcTemplate.update(CREATE, jdbcTemplate.update(CREATE, entity.getFirstName(),
-                entity.getLastName(), entity.getDateOfBirth().toString(), entity.getGender()));
+        return jdbcTemplate.update(CREATE, entity.getFirstName(), entity.getLastName(),
+                entity.getDateOfBirth().toString(), entity.getGender(), entity.getPropertyInfoId());
     }
 
     @Override
     public int update(User entity, Long id) {
         return jdbcTemplate.update(UPDATE, entity.getFirstName(), entity.getLastName(),
-                entity.getDateOfBirth().toString(), entity.getGender(), id);
+                entity.getDateOfBirth().toString(), entity.getGender(), entity.getPropertyInfoId(),
+                id);
 
     }
 

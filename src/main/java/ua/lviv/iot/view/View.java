@@ -203,7 +203,7 @@ public class View {
         menuMethods.put("44", this::findAllUsers);
         menuMethods.put("45", this::findUserById);
         menuMethods.put("46", this::findUsersByFirstName);
-        menuMethods.put("46", this::findUsersByLastName);
+        menuMethods.put("47", this::findUsersByLastName);
 
         menuMethods.put("51", this::createHealthInfo);
         menuMethods.put("52", this::updateHealthInfo);
@@ -297,6 +297,7 @@ public class View {
         System.out.println("Input 'ID': ");
         Long id = scanner.nextLong();
         System.out.println("Input 'first name': ");
+        scanner.nextLine();
         String firstName = scanner.nextLine();
         System.out.println("Input 'last name': ");
         String lastName = scanner.nextLine();
@@ -481,6 +482,7 @@ public class View {
         System.out.println("Input 'ID': ");
         Long id = scanner.nextLong();
         System.out.println("Input 'first name': ");
+        scanner.nextLine();
         String firstName = scanner.nextLine();
         System.out.println("Input 'last name': ");
         String lastName = scanner.nextLine();
