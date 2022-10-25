@@ -84,7 +84,7 @@ public class View {
         menu = new LinkedHashMap<>();
         menu.put("A", "A - select all tables");
 
-        menu.put("1", "1 - Table: Owner");
+        menu.put("1", "----------Table: Owner---------");
         menu.put("11", "11 - Create Owner");
         menu.put("12", "12 - Update Owner");
         menu.put("13", "13 - Delete Owner");
@@ -93,21 +93,21 @@ public class View {
         menu.put("16", "16 - Find owners by first name");
         menu.put("17", "17 - Find owners by last name");
 
-        menu.put("2", "2 - Table: Watch");
+        menu.put("2", "----------Table: Watch----------");
         menu.put("21", "21 - Create Watch");
         menu.put("22", "22 - Update Watch");
         menu.put("23", "23 - Delete Watch");
         menu.put("24", "24 - Find watch by serial number");
         menu.put("25", "25 - Find all watches");
 
-        menu.put("3", "3 - Table: PropertyInfo");
+        menu.put("3", "----------Table: PropertyInfo----------");
         menu.put("31", "31 - Create PropertyInfo");
         menu.put("32", "32 - Delete PropertyInfo");
         menu.put("33", "33 - Update PropertyInfo");
         menu.put("34", "34 - Find PropertyInfo by id");
         menu.put("35", "35 - Find all PropertyInfos");
 
-        menu.put("4", "4 - Table: User");
+        menu.put("4", "----------Table: User----------");
         menu.put("41", "41 - Create User");
         menu.put("42", "42 - Update User");
         menu.put("43", "43 - Delete User");
@@ -116,56 +116,56 @@ public class View {
         menu.put("46", "46 - Find Users by first name");
         menu.put("47", "47 - Find Users by last name");
 
-        menu.put("5", "5 - Table: HealthInfo");
+        menu.put("5", "----------Table: HealthInfo----------");
         menu.put("51", "51 - Create HealthInfo");
         menu.put("52", "52 - Update HealthInfo");
         menu.put("53", "53 - Delete HealthInfo");
         menu.put("54", "54 - Select everything from HealthInfo");
         menu.put("55", "55 - Find HealthInfo by ID");
 
-        menu.put("6", "6 - Table: WatchLocation");
+        menu.put("6", "----------Table: WatchLocation----------");
         menu.put("61", "61 - Create WatchLocation");
         menu.put("62", "62 - Update WatchLocation");
         menu.put("63", "63 - Delete WatchLocation");
         menu.put("64", "64 - Select everything from HealthInfo");
         menu.put("65", "65 - Find WatchLocation by ID");
 
-        menu.put("7", "7 - Table: WatchBattery");
+        menu.put("7", "----------Table: WatchBattery----------");
         menu.put("71", "71 - Create WatchBattery");
         menu.put("72", "72 - Update WatchBattery");
         menu.put("73", "73 - Delete WatchBattery");
         menu.put("74", "74 - Select everything from WatchBattery");
         menu.put("75", "75 - Find WatchBattery by ID");
 
-        menu.put("8", "8 - Table: EmergencyPhoneNumber");
+        menu.put("8", "----------Table: EmergencyPhoneNumber----------");
         menu.put("81", "81 - Create EmergencyPhoneNumber");
         menu.put("82", "82 - Update EmergencyPhoneNumber");
         menu.put("83", "83 - Delete EmergencyPhoneNumber");
         menu.put("84", "84 - Select everything from EmergencyPhoneNumber");
         menu.put("85", "85 - Find EmergencyPhoneNumber by ID");
 
-        menu.put("9", "9 - Table: Country");
+        menu.put("9", "----------Table: Country----------");
         menu.put("91", "91 - Create Country");
         menu.put("92", "92 - Update Country");
         menu.put("93", "93 - Delete Country");
         menu.put("94", "94 - Find all countries");
         menu.put("95", "95 - Find country by name");
 
-        menu.put("100", "100 - Table: Region");
+        menu.put("100", "----------Table: Region----------");
         menu.put("101", "101 - Create Region");
         menu.put("102", "102 - Update Region");
         menu.put("103", "103 - Delete Region");
         menu.put("104", "104 - Find region by name");
         menu.put("105", "105 - Find all regions");
 
-        menu.put("110", "110 - Table: City");
+        menu.put("110", "----------Table: City----------");
         menu.put("111", "111 - Create City");
         menu.put("112", "112 - Update City");
         menu.put("113", "113 - Delete City");
         menu.put("114", "114 - Find all cities");
         menu.put("115", "115 - Find city by name");
 
-        menu.put("120", "120 - Table: Street");
+        menu.put("120", "----------Table: Street----------");
         menu.put("121", "121 - Create Street");
         menu.put("122", "122 - Update Street");
         menu.put("123", "123 - Delete Street");
@@ -252,6 +252,8 @@ public class View {
         menuMethods.put("123", this::deleteStreet);
         menuMethods.put("124", this::findAllStreets);
         menuMethods.put("125", this::findByStreetName);
+        
+        menuMethods.put("Q", this::finishProgram);
 
     }
 
@@ -269,6 +271,10 @@ public class View {
         findAllWatchBatteries();
         findAllWatches();
         findAllWatchLocation();
+    }
+    public void finishProgram() {
+        System.out.println("The program's been finished!");
+        System.exit(1);
     }
 
     // OWNER

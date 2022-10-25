@@ -14,7 +14,7 @@ import lombok.ToString;
 public class WatchBattery {
 
     private Long id;
-    private Integer chardeLevel;
+    private Integer chargeLevel;
     private String watchSerialNumber;
     
 }

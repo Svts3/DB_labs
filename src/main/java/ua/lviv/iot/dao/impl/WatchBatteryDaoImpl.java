@@ -46,12 +46,12 @@ public class WatchBatteryDaoImpl implements WatchBatteryDao {
 
     @Override
     public int save(WatchBattery entity) {
-        return jdbcTemplate.update(CREATE, entity.getChardeLevel(), entity.getWatchSerialNumber());
+        return jdbcTemplate.update(CREATE, entity.getChargeLevel(), entity.getWatchSerialNumber());
     }
 
     @Override
     public int update(WatchBattery entity, Long id) {
-        return jdbcTemplate.update(UPDATE, entity.getChardeLevel(), entity.getWatchSerialNumber(), id);
+        return jdbcTemplate.update(UPDATE, entity.getChargeLevel(), entity.getWatchSerialNumber(), id);
     }
 
     @Override
