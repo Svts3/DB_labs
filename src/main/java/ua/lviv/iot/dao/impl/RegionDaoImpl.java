@@ -23,7 +23,7 @@ public class RegionDaoImpl implements RegionDao {
 
     private final String CREATE = "INSERT INTO region(name, country_name) VALUES(?, ?)";
 
-    private final String UPDATE = "UPDATE region SET name=?, region_name=? WHERE id=?";
+    private final String UPDATE = "UPDATE region SET name=?, country_name=? WHERE name=?";
     private final String DELETE = "DELETE FROM region WHERE name=?";
 
     private JdbcTemplate jdbcTemplate;

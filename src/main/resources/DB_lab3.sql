@@ -40,7 +40,7 @@ CREATE TABLE region (
   `name` varchar(30) NOT NULL,
   country_name varchar(30) NOT NULL,
   PRIMARY KEY (`name`),
-  CONSTRAINT region_country FOREIGN KEY (country_name) REFERENCES country (`name`)
+  CONSTRAINT region_country FOREIGN KEY (country_name) REFERENCES country (`name`) on update cascade on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -62,7 +62,7 @@ CREATE TABLE city (
   `name` varchar(30) NOT NULL,
   region_name varchar(30) NOT NULL,
   PRIMARY KEY (`name`),
-  CONSTRAINT city_region FOREIGN KEY (region_name) REFERENCES region (`name`)
+  CONSTRAINT city_region FOREIGN KEY (region_name) REFERENCES region (`name`)on update cascade on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -81,7 +81,7 @@ CREATE TABLE street (
   `name` varchar(30) NOT NULL,
   city_name varchar(30) NOT NULL,
   PRIMARY KEY (`name`),
-  CONSTRAINT street_city FOREIGN KEY (city_name) REFERENCES city (`name`)
+  CONSTRAINT street_city FOREIGN KEY (city_name) REFERENCES city (`name`)on update cascade on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -102,7 +102,7 @@ CREATE TABLE watch (
   serial_number varchar(40) NOT NULL,
   street_name varchar(30) NOT NULL,
   PRIMARY KEY (serial_number),
-  CONSTRAINT watch_street FOREIGN KEY (street_name) REFERENCES street (`name`)
+  CONSTRAINT watch_street FOREIGN KEY (street_name) REFERENCES street (`name`)on update cascade on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO watch (serial_number, street_name) VALUES ('4161362634','Alexander Dovzhenko Str');
@@ -148,8 +148,8 @@ CREATE TABLE property_info (
   PRIMARY KEY (id),
   INDEX Table_5_owner (owner_id),
   INDEX Table_5_watch (watch_serial_number),
-  CONSTRAINT Table_5_owner FOREIGN KEY (owner_id) REFERENCES `owner` (id),
-  CONSTRAINT Table_5_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)
+  CONSTRAINT Table_5_owner FOREIGN KEY (owner_id) REFERENCES `owner` (id) on update cascade on delete cascade,
+  CONSTRAINT Table_5_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number) on update cascade on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -176,7 +176,7 @@ CREATE TABLE `user` (
   INDEX user_property_info (property_info_id),
   INDEX first_name_index (first_name),
   INDEX date_of_birth_index (date_of_birth),
-  CONSTRAINT user_property_info FOREIGN KEY (property_info_id) REFERENCES property_info (id)
+  CONSTRAINT user_property_info FOREIGN KEY (property_info_id) REFERENCES property_info (id)on update cascade on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -198,7 +198,7 @@ CREATE TABLE emergency_phone_number (
   watch_serial_number varchar(40) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE INDEX phone_number_UNIQUE (phone_number),
-  CONSTRAINT emergency_phone_number_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)
+  CONSTRAINT emergency_phone_number_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)on update cascade on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -223,7 +223,7 @@ CREATE TABLE health_info (
   PRIMARY KEY (id),
   INDEX health_info_watch (watch_serial_number),
   INDEX hearbeat_rate_index (heartbeat_rate),
-  CONSTRAINT health_info_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)
+  CONSTRAINT health_info_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)on update cascade on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -248,7 +248,7 @@ CREATE TABLE watch_battery (
   charge_level decimal(3,0) NOT NULL,
   watch_serial_number varchar(40) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT watch_battery_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)
+  CONSTRAINT watch_battery_watch FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)on update cascade on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO watch_battery (id, charge_level, watch_serial_number) VALUES (11,100,'4161362634');
@@ -275,7 +275,7 @@ CREATE TABLE watch_location (
   longitude decimal(8,6) NOT NULL,
   watch_serial_number varchar(40) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_watch_location_watch1 FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)
+  CONSTRAINT fk_watch_location_watch1 FOREIGN KEY (watch_serial_number) REFERENCES watch (serial_number)on update cascade on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 

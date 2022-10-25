@@ -18,8 +18,8 @@ public class PropertyInfoDaoImpl implements PropertyInfoDao {
 
     private final String FIND_BY_ID = "SELECT * FROM property_info where id=?";
 
-    private final String CREATE = "INSERT INTO property_info(owner_id,"
-            + " watch_serial_number) VALUES(?,?)";
+    private final String CREATE = "INSERT INTO property_info(owner_id, watch_serial_number)"
+            + " VALUES(?,?)";
 
     private final String UPDATE = "UPDATE property_info SET owner_id=?,"
             + " watch_serial_number=? WHERE id=?";

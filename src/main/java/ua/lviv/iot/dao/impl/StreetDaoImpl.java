@@ -19,7 +19,7 @@ public class StreetDaoImpl implements StreetDao {
 
     private final String CREATE = "INSERT INTO street(name, city_name) VALUES(?,?)";
 
-    private final String UPDATE = "UPDATE street SET name=?, city_name=? WHERE id=?";
+    private final String UPDATE = "UPDATE street SET name=?, city_name=? WHERE name=?";
     private final String DELETE = "DELETE FROM street WHERE name=?";
 
     private JdbcTemplate jdbcTemplate;
@@ -53,7 +53,7 @@ public class StreetDaoImpl implements StreetDao {
     public Optional<Street> findStreetByName(String name) {
 
         return jdbcTemplate
-                .query(FIND_BY_NAME, new BeanPropertyRowMapper().newInstance(Street.class)).stream()
+                .query(FIND_BY_NAME, new BeanPropertyRowMapper().newInstance(Street.class), name).stream()
                 .findAny();
     }
 

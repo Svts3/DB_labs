@@ -52,7 +52,7 @@ public class EmergencyPhoneNumberDaoImpl implements EmergencyPhoneNumberDao {
 
     @Override
     public int update(EmergencyPhoneNumber entity, Long id) {
-        return jdbcTemplate.update(CREATE, entity.getPhoneNumber(), entity.getWatchSerialNumber(), id);
+        return jdbcTemplate.update(UPDATE, entity.getPhoneNumber(), entity.getWatchSerialNumber(), id);
     }
 
     @Override

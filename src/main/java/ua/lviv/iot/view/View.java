@@ -192,8 +192,8 @@ public class View {
         menuMethods.put("25", this::findAllWatches);
 
         menuMethods.put("31", this::createPropertyInfo);
-        menuMethods.put("32", this::updatePropertyInfo);
-        menuMethods.put("33", this::deletePropertyInfo);
+        menuMethods.put("32", this::deletePropertyInfo);
+        menuMethods.put("33", this::updatePropertyInfo);
         menuMethods.put("34", this::findPropertyInfoById);
         menuMethods.put("35", this::findAllPropertyInfos);
 
@@ -395,10 +395,10 @@ public class View {
     }
 
     public void createPropertyInfo() {
-        System.out.println("Input 'owner ID': ");
-        Long ownerId = scanner.nextLong();
         System.out.println("Input 'watch serial number': ");
         String serialNumber = scanner.nextLine();
+        System.out.println("Input 'owner ID': ");
+        Long ownerId = scanner.nextLong();
 
         PropertyInfo propertyInfo = new PropertyInfo(null, ownerId, serialNumber);
         int count = propertyInfoControllerImpl.save(propertyInfo);
@@ -530,6 +530,7 @@ public class View {
         System.out.println("Input 'heartbeat rate': ");
         Integer hearbeatRate = scanner.nextInt();
         System.out.println("Input 'watch serial number': ");
+        scanner.nextLine();
         String serialNumber = scanner.nextLine();
 
         HealthInfo healthInfo = new HealthInfo(null, hearbeatRate, serialNumber);
@@ -625,7 +626,7 @@ public class View {
         System.out.println("Input 'ID': ");
         Long id = scanner.nextLong();
         System.out.println("Input 'watch serial number': ");
-        scanner.next();
+        scanner.nextLine();
         String watchSerialNumber = scanner.nextLine();
         System.out.println("Input 'charge level': ");
         Integer chargeLevel = scanner.nextInt();
@@ -673,6 +674,7 @@ public class View {
         System.out.println("Input 'ID': ");
         Long id = scanner.nextLong();
         System.out.println("Input 'watch serial number': ");
+        scanner.nextLine();
         String watchSerialNumber = scanner.nextLine();
         System.out.println("Input 'phone number': ");
         String phoneNumber = scanner.nextLine();
@@ -762,9 +764,13 @@ public class View {
     public void updateRegion() {
         System.out.println("Input 'name': ");
         String name = scanner.nextLine();
+        System.out.println("Input 'new name': ");
+        String newRegionName = scanner.nextLine();
+        System.out.println("Input 'country name': ");
+        String countryName = scanner.nextLine();
 
-        Country country = new Country(name);
-        int count = countryControllerImpl.update(country, name);
+        Region region = new Region(newRegionName, countryName);
+        int count = regionControllerImpl.update(region, name);
         System.out.printf("There are created %d rows\n", count);
     }
 
@@ -793,7 +799,7 @@ public class View {
     public void createCity() {
         System.out.println("Input 'name': ");
         String name = scanner.nextLine();
-        System.out.println("Input 'city name': ");
+        System.out.println("Input 'region name': ");
         String regionName = scanner.nextLine();
 
         City city = new City(name, regionName);
@@ -806,8 +812,9 @@ public class View {
         String name = scanner.nextLine();
         System.out.println("Input 'region name': ");
         String regionName = scanner.nextLine();
-
-        City city = new City(name, regionName);
+        System.out.println("Input 'new name': ");
+        String newCityname = scanner.nextLine();
+        City city = new City(newCityname, regionName);
         int count = cityControllerImpl.update(city, name);
         System.out.printf("There are created %d rows\n", count);
     }
@@ -851,8 +858,10 @@ public class View {
         String name = scanner.nextLine();
         System.out.println("Input 'city name': ");
         String cityName = scanner.nextLine();
+        System.out.println("Input 'new name': ");
+        String newStreetName = scanner.nextLine();
 
-        Street street = new Street(name, cityName);
+        Street street = new Street(newStreetName, cityName);
         int count = streetControllerImpl.update(street, name);
         System.out.printf("There are created %d rows\n", count);
     }
