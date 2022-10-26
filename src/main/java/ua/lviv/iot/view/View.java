@@ -889,35 +889,19 @@ public class View {
         }
     }
 
-    private void outputSubMenu(String fig) {
-        System.out.println("\nSubMENU:");
-        for (String key : menu.keySet()){
-            if (key.length() >= 2 && key.substring(0, 4).equals(fig)){
-                System.out.println(menu.get(key));
-            }
-        }
-
-    }
 
     public void show() {
-        String keyMenu;
+        String keyMenu = null;
+        outputMenu();
+        System.out.println("\nPlease, select menu point.\n");
         do {
-            outputMenu();
-            System.out.println("Please, select menu point.");
-            keyMenu = scanner.nextLine().toUpperCase();
-
-            if (keyMenu.matches("^\\d")) {
-                outputSubMenu(keyMenu);
-                System.out.println("Please, select menu point.");
-                keyMenu = scanner.nextLine().toUpperCase();
-            }
-
             try {
-                menuMethods.get(keyMenu).print();
-            } catch (Exception e) {
-                System.out.println(e);
+                keyMenu = scanner.nextLine();
+               menuMethods.get(keyMenu).print();
+               outputMenu();
+            } catch (Exception ignored) {
             }
-        } while (!keyMenu.equals("Q"));
+        } while (scanner.hasNext() || !keyMenu.equals("Q"));
     }
     
     
