@@ -1,10 +1,10 @@
 package ua.lviv.iot.service;
 
-import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.model.Street;
 
-public interface StreetService extends GeneralService<Street, String>{
+@Service
+public interface StreetService extends GeneralService<Street, String> {
 
-    Optional<Street>findStreetByName(String name);
 }

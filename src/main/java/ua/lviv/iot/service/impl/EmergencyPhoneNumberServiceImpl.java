@@ -1,47 +1,52 @@
 package ua.lviv.iot.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ua.lviv.iot.dao.EmergencyPhoneNumberDao;
-import ua.lviv.iot.dao.impl.EmergencyPhoneNumberDaoImpl;
+import ua.lviv.iot.exception.EmergencyPhoneNumberNotFoundException;
 import ua.lviv.iot.model.EmergencyPhoneNumber;
-
+import ua.lviv.iot.repository.EmergencyPhoneNumberRepository;
+import ua.lviv.iot.service.EmergencyPhoneNumberService;
 @Service
-public class EmergencyPhoneNumberServiceImpl implements EmergencyPhoneNumberDao {
+public class EmergencyPhoneNumberServiceImpl implements EmergencyPhoneNumberService {
 
-    private EmergencyPhoneNumberDaoImpl dao;
-    
+    private static final String EMERGENCY_PHONE_NUMBER_NOT_FOUND_EXCEPTION_MESSAGE = "Phone number was not found!";
+
     @Autowired
-    public EmergencyPhoneNumberServiceImpl(EmergencyPhoneNumberDaoImpl dao) {
-        this.dao = dao;
-    }
+    private EmergencyPhoneNumberRepository repository;
 
     @Override
     public List<EmergencyPhoneNumber> findAll() {
-        return dao.findAll();
-    }
-
-    public Optional<EmergencyPhoneNumber> findById(Long id) {
-        return dao.findById(id);
+        return repository.findAll();
     }
 
     @Override
-    public int save(EmergencyPhoneNumber entity) {
-        return dao.save(entity);
+    public EmergencyPhoneNumber save(EmergencyPhoneNumber entity) {
+        return repository.save(entity);
     }
 
     @Override
-    public int update(EmergencyPhoneNumber entity, Long id) {
-        return dao.update(entity, id);
+    public EmergencyPhoneNumber findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new EmergencyPhoneNumberNotFoundException(
+                EMERGENCY_PHONE_NUMBER_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
     @Override
-    public int deleteById(Long id) {
-        return dao.deleteById(id);
+    public EmergencyPhoneNumber update(EmergencyPhoneNumber entity, Long id) {
+        EmergencyPhoneNumber emergencyPhoneNumber = findById(id);
+        emergencyPhoneNumber.setId(id);
+        emergencyPhoneNumber.setPhoneNumber(entity.getPhoneNumber());
+        emergencyPhoneNumber.setWatch(entity.getWatch());
+        return repository.save(emergencyPhoneNumber);
+    }
+
+    @Override
+    public EmergencyPhoneNumber deleteById(Long id) {
+        EmergencyPhoneNumber emergencyPhoneNumber = findById(id);
+        repository.deleteById(id);
+        return emergencyPhoneNumber;
     }
 
 }

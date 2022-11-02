@@ -1,50 +1,66 @@
 package ua.lviv.iot.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import ua.lviv.iot.dao.CityDao;
-import ua.lviv.iot.dao.impl.CityDaoImpl;
+import ua.lviv.iot.exception.CityNotFoundException;
 import ua.lviv.iot.model.City;
+import ua.lviv.iot.model.Street;
+import ua.lviv.iot.repository.CityRepository;
+import ua.lviv.iot.service.CityService;
 @Service
-public class CityServiceImpl implements CityDao {
+public class CityServiceImpl implements CityService {
 
-    private CityDaoImpl dao;
-    
+    private static final String CITY_NOT_FOUND_EXCEPTION = "City was not found!";
+
+    private CityRepository repository;
+
     @Autowired
-    public CityServiceImpl(CityDaoImpl dao) {
-        this.dao = dao;
+    public CityServiceImpl(CityRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<City> findAll() {
-        return dao.findAll();
+        return repository.findAll();
     }
-
-
+    @Transactional
     @Override
-    public int save(City entity) {
-        // TODO Auto-generated method stub
-        return dao.save(entity);
-    }
-
-    @Override
-    public int update(City entity, String id) {
-        return dao.update(entity, id);
+    public City save(City entity) {
+        return repository.save(entity);
     }
 
     @Override
-    public int deleteById(String id) {
-        return dao.deleteById(id);
+    public City findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new CityNotFoundException(CITY_NOT_FOUND_EXCEPTION));
     }
 
     @Override
-    public Optional<City> findCityByName(String name) {
-        return dao.findCityByName(name);
+    public City update(City entity, String id) {
+        City city = findById(id);
+        repository.deleteById(id);
+        city.setName(entity.getName());
+        city.setRegion(entity.getRegion());
+        entity.setStreets(entity.getStreets());
+        return repository.save(entity);
+    }
+    @Transactional
+    @Override
+    public City deleteById(String id) {
+        City city = findById(id);
+        repository.deleteById(id);
+        return city;
+    }
+
+    @Override
+    public List<Street> findAllStreetsByCityName(String cityName) {
+        City city = findById(cityName);
+        return city.getStreets();
     }
 
 }

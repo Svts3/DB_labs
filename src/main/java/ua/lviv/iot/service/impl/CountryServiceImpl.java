@@ -1,49 +1,65 @@
 package ua.lviv.iot.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ua.lviv.iot.dao.CountryDao;
-import ua.lviv.iot.dao.impl.ContryDaoImpl;
+import ua.lviv.iot.exception.CountryNotFoundException;
 import ua.lviv.iot.model.Country;
-
+import ua.lviv.iot.model.Region;
+import ua.lviv.iot.repository.CountryRepository;
+import ua.lviv.iot.service.CountryService;
 @Service
-public class CountryServiceImpl implements CountryDao {
+public class CountryServiceImpl implements CountryService {
 
-    private ContryDaoImpl dao;
+    private static final String COUNTRY_NOT_FOUND_EXCEPTION_MESSAGE = "County was not found!";
+
+    private CountryRepository countryRepository;
 
     @Autowired
-    public CountryServiceImpl(ContryDaoImpl dao) {
-        this.dao = dao;
+    public CountryServiceImpl(CountryRepository countryRepository) {
+        this.countryRepository = countryRepository;
     }
 
     @Override
     public List<Country> findAll() {
-        return dao.findAll();
+        return countryRepository.findAll();
     }
-
-
+    @Transactional
     @Override
-    public int save(Country entity) {
-        return dao.save(entity);
-    }
-
-    @Override
-    public int update(Country entity, String id) {
-        return dao.update(entity, id);
+    public Country save(Country entity) {
+        return countryRepository.save(entity);
     }
 
     @Override
-    public int deleteById(String id) {
-        return dao.deleteById(id);
+    public Country findById(String id) {
+        return countryRepository.findById(id).orElseThrow(
+                () -> new CountryNotFoundException(COUNTRY_NOT_FOUND_EXCEPTION_MESSAGE));
+    }
+    @Override
+    public Country update(Country entity, String id) {
+        Country country = findById(id);
+        countryRepository.deleteById(id);
+        country.setName(entity.getName());
+        country.setRegions(entity.getRegions());
+        return countryRepository.save(country);
+    }
+    @Transactional
+    @Override
+    public Country deleteById(String id) {
+        Country country = countryRepository.findById(id).orElseThrow(
+                () -> new CountryNotFoundException(COUNTRY_NOT_FOUND_EXCEPTION_MESSAGE));
+        countryRepository.deleteById(id);
+        return country;
     }
 
     @Override
-    public Optional<Country> findCountryByName(String name) {
-        return dao.findCountryByName(name);
+    public List<Region> findAllRegionsByCountryName(String countryName) {
+            Country country = findById(countryName);
+        return country.getRegions();
     }
 
 }

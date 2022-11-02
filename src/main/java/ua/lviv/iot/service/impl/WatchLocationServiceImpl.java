@@ -1,46 +1,51 @@
 package ua.lviv.iot.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ua.lviv.iot.dao.WatchLocationDao;
-import ua.lviv.iot.dao.impl.WatchLocationDaoImpl;
+import ua.lviv.iot.exception.WatchLocationNotFoundException;
 import ua.lviv.iot.model.WatchLocation;
+import ua.lviv.iot.repository.WatchLocationRepository;
+import ua.lviv.iot.service.WatchLocationService;
 @Service
-public class WatchLocationServiceImpl implements WatchLocationDao {
+public class WatchLocationServiceImpl implements WatchLocationService {
 
-    private WatchLocationDaoImpl dao;
+    private static final String WATCH_LOCATION_NOT_FOUND_EXCEPTION_MESSAGE = "Health info was not found!";
 
-    @Autowired
-    public WatchLocationServiceImpl(WatchLocationDaoImpl dao) {
-        this.dao = dao;
-    }
+    private WatchLocationRepository repository;
 
     @Override
     public List<WatchLocation> findAll() {
-        return dao.findAll();
-    }
-
-    public Optional<WatchLocation> findById(Long id) {
-        return dao.findById(id);
+        return repository.findAll();
     }
 
     @Override
-    public int save(WatchLocation entity) {
-        return dao.save(entity);
+    public WatchLocation save(WatchLocation entity) {
+        return repository.save(entity);
     }
 
     @Override
-    public int update(WatchLocation entity, Long id) {
-        return dao.update(entity, id);
+    public WatchLocation findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new WatchLocationNotFoundException(
+                WATCH_LOCATION_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
     @Override
-    public int deleteById(Long id) {
-        return dao.deleteById(id);
+    public WatchLocation update(WatchLocation entity, Long id) {
+        WatchLocation watchLocation = findById(id);
+        watchLocation.setId(id);
+        watchLocation.setLatitude(entity.getLatitude());
+        watchLocation.setLongitude(entity.getLongitude());
+        watchLocation.setWatch(entity.getWatch());
+        return repository.save(watchLocation);
+    }
+
+    @Override
+    public WatchLocation deleteById(Long id) {
+        WatchLocation watchLocation = findById(id);
+        repository.deleteById(id);
+        return watchLocation;
     }
 
 }

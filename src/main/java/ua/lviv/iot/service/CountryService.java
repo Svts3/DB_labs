@@ -1,10 +1,13 @@
 package ua.lviv.iot.service;
 
-import java.util.Optional;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.model.Country;
-
+import ua.lviv.iot.model.Region;
+@Service
 public interface CountryService extends GeneralService<Country, String>{
 
-    Optional<Country>findCountryByName(String name);
+    List<Region> findAllRegionsByCountryName(String countryName);
 }

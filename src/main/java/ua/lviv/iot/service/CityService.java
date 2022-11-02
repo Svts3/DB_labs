@@ -1,10 +1,13 @@
 package ua.lviv.iot.service;
 
-import java.util.Optional;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import ua.lviv.iot.model.City;
-
+import ua.lviv.iot.model.Street;
+@Service
 public interface CityService extends GeneralService<City, String>{
 
-    Optional<City>findCityByName(String name);
+    List<Street>findAllStreetsByCityName(String cityName);
 }

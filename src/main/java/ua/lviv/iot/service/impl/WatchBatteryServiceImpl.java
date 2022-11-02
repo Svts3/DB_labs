@@ -1,47 +1,56 @@
 package ua.lviv.iot.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ua.lviv.iot.dao.WatchBatteryDao;
-import ua.lviv.iot.dao.impl.WatchBatteryDaoImpl;
+import ua.lviv.iot.exception.WatchBatteryNotFoundException;
 import ua.lviv.iot.model.WatchBattery;
-
+import ua.lviv.iot.repository.WatchBatteryRepository;
+import ua.lviv.iot.service.WatchBatteryService;
 @Service
-public class WatchBatteryServiceImpl implements WatchBatteryDao {
+public class WatchBatteryServiceImpl implements WatchBatteryService {
 
-    private WatchBatteryDaoImpl dao;
+    private static final String WATCH_BATTERY_NOT_FOUND_EXCEPTION_MESSAGE = "Watch battery was not found";
+
+    private WatchBatteryRepository repository;
 
     @Autowired
-    public WatchBatteryServiceImpl(WatchBatteryDaoImpl dao) {
-        this.dao = dao;
+    public WatchBatteryServiceImpl(WatchBatteryRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<WatchBattery> findAll() {
-        return dao.findAll();
-    }
-
-    public Optional<WatchBattery> findById(Long id) {
-        return dao.findById(id);
+        return repository.findAll();
     }
 
     @Override
-    public int save(WatchBattery entity) {
-        return dao.save(entity);
+    public WatchBattery save(WatchBattery entity) {
+        return repository.save(entity);
     }
 
     @Override
-    public int update(WatchBattery entity, Long id) {
-        return dao.update(entity, id);
+    public WatchBattery findById(Long id) {
+        return repository.findById(id).orElseThrow(
+                () -> new WatchBatteryNotFoundException(WATCH_BATTERY_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
     @Override
-    public int deleteById(Long id) {
-        return dao.deleteById(id);
+    public WatchBattery update(WatchBattery entity, Long id) {
+        WatchBattery watchBattery = findById(id);
+        watchBattery.setId(id);
+        watchBattery.setChargeLevel(entity.getChargeLevel());
+        watchBattery.setWatch(entity.getWatch());
+        return repository.save(watchBattery);
+    }
+
+    @Override
+    public WatchBattery deleteById(Long id) {
+        WatchBattery watchBattery = findById(id);
+        repository.deleteById(id);
+        return  watchBattery;
     }
 
 }

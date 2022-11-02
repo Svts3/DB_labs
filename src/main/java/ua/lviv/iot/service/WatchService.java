@@ -1,11 +1,13 @@
 package ua.lviv.iot.service;
 
-import java.util.Optional;
+import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import ua.lviv.iot.model.Owner;
 import ua.lviv.iot.model.Watch;
+@Service
+public interface WatchService extends GeneralService<Watch, String>{
 
-public interface WatchService extends GeneralService<Watch, Long>{
-
-    Optional<Watch> findWatchBySerialNumber(String serialNumber);
-    
+    List<Owner>findAllWatchOwnersBySerialNumber(String serialNumber);
 }

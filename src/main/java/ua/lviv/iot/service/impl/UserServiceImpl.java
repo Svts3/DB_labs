@@ -1,59 +1,70 @@
 package ua.lviv.iot.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ua.lviv.iot.dao.UserDao;
-import ua.lviv.iot.dao.impl.UserDaoImpl;
+import ua.lviv.iot.exception.UserNotFoundException;
 import ua.lviv.iot.model.User;
-
+import ua.lviv.iot.repository.UserRepository;
+import ua.lviv.iot.service.UserService;
 @Service
-public class UserServiceImpl implements UserDao {
+public class UserServiceImpl implements UserService {
 
-    private UserDaoImpl dao;
+    private static final String USER_NOT_FOUND_EXCEPTION_MESSAGE = "User was not found!";
+
+    private UserRepository repository;
 
     @Autowired
-    public UserServiceImpl(UserDaoImpl dao) {
-        this.dao = dao;
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public List<User> findAll() {
-        // TODO Auto-generated method stub
-        return dao.findAll();
-    }
-
-    public Optional<User> findById(Long id) {
-        return dao.findById(id);
+        return repository.findAll();
     }
 
     @Override
-    public int save(User entity) {
-        return dao.save(entity);
+    public User save(User entity) {
+        return repository.save(entity);
     }
 
     @Override
-    public int update(User entity, Long id) {
-        return dao.update(entity, id);
-
+    public User findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_EXCEPTION_MESSAGE));
     }
 
     @Override
-    public int deleteById(Long id) {
-        return dao.deleteById(id);
+    public User update(User entity, Long id) {
+        User user = findById(id);
+        user.setId(id);
+        user.setFirstName(entity.getFirstName());
+        user.setLastName(entity.getLastName());
+        user.setDateOfBirth(entity.getDateOfBirth());
+        user.setGender(entity.getGender());
+        user.setPropertyInfo(entity.getPropertyInfo());
+        return repository.save(user);
     }
 
     @Override
-    public List<User> findUsersByFirstName(String firstName) {
-        return dao.findUsersByFirstName(firstName);
+    public User deleteById(Long id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_EXCEPTION_MESSAGE));
+        repository.deleteById(id);
+        return user;
     }
 
     @Override
-    public List<User> findUsersByLastName(String lastName) {
-        return dao.findUsersByLastName(lastName);
+    public List<User> findByFirstName(String firstName) {
+        return repository.findByFirstName(firstName);
+    }
+
+    @Override
+    public List<User> findByLastName(String lastName) {
+        return repository.findByLastName(lastName);
     }
 
 }
