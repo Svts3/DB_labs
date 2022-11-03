@@ -2,6 +2,8 @@ package ua.lviv.iot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class WatchBatteryServiceImpl implements WatchBatteryService {
     public List<WatchBattery> findAll() {
         return repository.findAll();
     }
-
+    @Transactional
     @Override
     public WatchBattery save(WatchBattery entity) {
         return repository.save(entity);
@@ -36,7 +38,7 @@ public class WatchBatteryServiceImpl implements WatchBatteryService {
         return repository.findById(id).orElseThrow(
                 () -> new WatchBatteryNotFoundException(WATCH_BATTERY_NOT_FOUND_EXCEPTION_MESSAGE));
     }
-
+    @Transactional
     @Override
     public WatchBattery update(WatchBattery entity, Long id) {
         WatchBattery watchBattery = findById(id);
@@ -45,7 +47,7 @@ public class WatchBatteryServiceImpl implements WatchBatteryService {
         watchBattery.setWatch(entity.getWatch());
         return repository.save(watchBattery);
     }
-
+    @Transactional
     @Override
     public WatchBattery deleteById(Long id) {
         WatchBattery watchBattery = findById(id);

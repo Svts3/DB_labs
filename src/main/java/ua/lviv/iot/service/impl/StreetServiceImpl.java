@@ -2,6 +2,8 @@ package ua.lviv.iot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class StreetServiceImpl implements StreetService {
     public List<Street> findAll() {
         return repository.findAll();
     }
-
+    @Transactional
     @Override
     public Street save(Street entity) {
         return repository.save(entity);
@@ -40,12 +42,13 @@ public class StreetServiceImpl implements StreetService {
     @Override
     public Street update(Street entity, String id) {
         Street street = findById(id);
+        repository.deleteById(id);
         street.setName(id);
         street.setCity(entity.getCity());
         street.setWatch(entity.getWatch());
         return repository.save(street);
     }
-
+    @Transactional
     @Override
     public Street deleteById(String id) {
         Street street = findById(id);

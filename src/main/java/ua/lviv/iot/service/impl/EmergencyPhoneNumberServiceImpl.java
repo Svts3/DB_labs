@@ -2,6 +2,8 @@ package ua.lviv.iot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class EmergencyPhoneNumberServiceImpl implements EmergencyPhoneNumberServ
     public List<EmergencyPhoneNumber> findAll() {
         return repository.findAll();
     }
-
+    @Transactional
     @Override
     public EmergencyPhoneNumber save(EmergencyPhoneNumber entity) {
         return repository.save(entity);
@@ -32,7 +34,7 @@ public class EmergencyPhoneNumberServiceImpl implements EmergencyPhoneNumberServ
         return repository.findById(id).orElseThrow(() -> new EmergencyPhoneNumberNotFoundException(
                 EMERGENCY_PHONE_NUMBER_NOT_FOUND_EXCEPTION_MESSAGE));
     }
-
+    @Transactional
     @Override
     public EmergencyPhoneNumber update(EmergencyPhoneNumber entity, Long id) {
         EmergencyPhoneNumber emergencyPhoneNumber = findById(id);
@@ -41,7 +43,7 @@ public class EmergencyPhoneNumberServiceImpl implements EmergencyPhoneNumberServ
         emergencyPhoneNumber.setWatch(entity.getWatch());
         return repository.save(emergencyPhoneNumber);
     }
-
+    @Transactional
     @Override
     public EmergencyPhoneNumber deleteById(Long id) {
         EmergencyPhoneNumber emergencyPhoneNumber = findById(id);

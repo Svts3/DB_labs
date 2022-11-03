@@ -70,7 +70,7 @@ public class WatchController {
     }
 
     @PutMapping("/{serialNumber}")
-    public ResponseEntity<WatchDTO> updateOwner(@PathVariable("serialNumber") String serialNumber,
+    public ResponseEntity<WatchDTO> updateWatch(@PathVariable("serialNumber") String serialNumber,
             @RequestBody Watch watch) {
         Watch watch2 = watchService.update(watch, serialNumber);
         WatchDTO dto = watchDTOAssembler.toModel(watch2);
@@ -78,7 +78,7 @@ public class WatchController {
     }
 
     @DeleteMapping("/{serialNumber}")
-    public ResponseEntity<WatchDTO> deleteOwner(@PathVariable("serialNumber") String serialNumber) {
+    public ResponseEntity<WatchDTO> deleteWatch(@PathVariable("serialNumber") String serialNumber) {
         Watch watch2 = watchService.deleteById(serialNumber);
         WatchDTO dto = watchDTOAssembler.toModel(watch2);
         return new ResponseEntity<>(dto, HttpStatus.OK);

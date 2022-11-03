@@ -2,6 +2,8 @@ package ua.lviv.iot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class PropertyInfoServiceImpl implements PropertyInfoService {
     public PropertyInfoServiceImpl(PropertyInfoRepository repository) {
         this.repository = repository;
     }
-
+    @Transactional
     @Override
     public PropertyInfo save(PropertyInfo entity) {
         return repository.save(entity);
@@ -31,7 +33,7 @@ public class PropertyInfoServiceImpl implements PropertyInfoService {
         return repository.findById(id).orElseThrow(
                 () -> new PropertyInfoNotFoundException(PropertyInfoNotFoundException));
     }
-
+    @Transactional
     @Override
     public PropertyInfo update(PropertyInfo entity, Long id) {
         PropertyInfo info = this.findById(id);
@@ -41,7 +43,7 @@ public class PropertyInfoServiceImpl implements PropertyInfoService {
         info.setWatch(entity.getWatch());
         return repository.save(info);
     }
-
+    @Transactional
     @Override
     public PropertyInfo deleteById(Long id) {
 

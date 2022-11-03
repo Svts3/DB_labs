@@ -3,6 +3,8 @@ package ua.lviv.iot.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,7 @@ public class WatchServiceImpl implements WatchService {
     public List<Watch> findAll() {
         return watchRepository.findAll();
     }
-
+    @Transactional
     @Override
     public Watch save(Watch entity) {
         return watchRepository.save(entity);
@@ -43,11 +45,11 @@ public class WatchServiceImpl implements WatchService {
         return watchRepository.findById(id)
                 .orElseThrow(() -> new WatchNotFoundException(WATCH_NOT_FOUND_EXCEPTION_MESSAGE));
     }
-
+    @Transactional
     @Override
     public Watch update(Watch entity, String id) {
         Watch watch = findById(id);
-        watch.setSerialNumber(id);
+        watch.setSerialNumber(entity.getSerialNumber());
         watch.setEmergencyPhoneNumbers(entity.getEmergencyPhoneNumbers());
         watch.setHealthInfos(entity.getHealthInfos());
         watch.setPropertyInfos(entity.getPropertyInfos());
@@ -56,7 +58,7 @@ public class WatchServiceImpl implements WatchService {
         watch.setWatchLocations(watch.getWatchLocations());
         return watchRepository.save(watch);
     }
-
+    @Transactional
     @Override
     public Watch deleteById(String id) {
 

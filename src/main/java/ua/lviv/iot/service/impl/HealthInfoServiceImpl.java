@@ -2,6 +2,8 @@ package ua.lviv.iot.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class HealthInfoServiceImpl implements HealthInfoService {
     public List<HealthInfo> findAll() {
         return repository.findAll();
     }
-
+    @Transactional
     @Override
     public HealthInfo save(HealthInfo entity) {
         return repository.save(entity);
@@ -36,7 +38,7 @@ public class HealthInfoServiceImpl implements HealthInfoService {
         return repository.findById(id).orElseThrow(
                 () -> new HealthInfoNotFoundException(HEALTH_INFO_NOT_FOUND_EXCEPTION_MESSAGE));
     }
-
+    @Transactional
     @Override
     public HealthInfo update(HealthInfo entity, Long id) {
         HealthInfo healthInfo = findById(id);
@@ -45,7 +47,7 @@ public class HealthInfoServiceImpl implements HealthInfoService {
         healthInfo.setWatch(entity.getWatch());
         return repository.save(healthInfo);
     }
-
+    @Transactional
     @Override
     public HealthInfo deleteById(Long id) {
         HealthInfo healthInfo = findById(id);

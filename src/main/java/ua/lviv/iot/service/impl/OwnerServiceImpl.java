@@ -3,6 +3,8 @@ package ua.lviv.iot.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,7 @@ public class OwnerServiceImpl implements OwnerService {
         this.ownerRepository = ownerRepository;
         this.propertyInfoRepository = propertyInfoRepository;
     }
-
+    @Transactional
     @Override
     public Owner save(Owner entity) {
         return ownerRepository.save(entity);
@@ -46,7 +48,7 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerRepository.findById(id)
                 .orElseThrow(() -> new OwnerNotFoundException(OWNER_NOT_FOUND_EXCEPTION_MESSAGE));
     }
-
+    @Transactional
     @Override
     public Owner update(Owner entity, Long id) {
         Owner owner = findById(id);
@@ -58,7 +60,7 @@ public class OwnerServiceImpl implements OwnerService {
         owner.setPropertyInfos(entity.getPropertyInfos());
         return ownerRepository.save(owner);
     }
-
+    @Transactional
     @Override
     public Owner deleteById(Long id) {
         Owner owner = ownerRepository.findById(id)
