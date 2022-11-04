@@ -1,22 +1,19 @@
 # DB_labs
 
-# lab1
+# Lab 5
 
-- Create a database (DB).
-- In this database, create a scheme with a name that corresponds to the student's last name. All newly created objects must belong to this schema.
-- Build all necessary objects (tables, primary keys, secondary keys, external keys, indexes, check constraints) for the specified database.
-- Enter at least 10 abstract records in each database table (if the number of course not limited to logic).
-- Create a diagram for a fully designed database. Tables should be displayed on chart in standard mode (columnname, datatype, allow null) Relationships between adjust the tables in such a way as to indicate between which columns they are establish a connection. Designation: P.K. – primary key; U.I. – unique index; I. – non-unique index; CHECK is a check constraint.
+1. For the designed database, implement a Back-end project using the Spring Boot ecosystem (Spring Data JPA) in the form of a Maven project with a connection to MySQL. 
+2. Controllers should process requests for CRUD operations and return the necessary data in the form of DTO objects with links (web addresses), according to HATEOAS recommendations.
+3. Services must contain basic business logic for working with data
+4. If necessary, repositories can contain additional methods (automatically generated or with JPQL queries) for working with data.
+5. Implement client work with data through Swagger:
+  - data output from tables;
+  - inserting data into the table;
+  - updating data in tables.
+  - deleting data from the table;
+  - data output from the side of the M:1 connection, that is, for example, for each city, output the people who live in it;
+  - data output from the connection table of the M:M connection, that is, to output for each subject from one table all the subjects of the second table that are connected to it.
 
-# Variant 43
-Create a relational database schema that allows you to store data
-about the owner of the smart watch, the location of the watch (gps
-coordinates), charge of the watch, heartbeat of the owner of the watch
-(information is sent every minute)). One owner can have
-several clocks, or several clocks may be
-registered to one owner and used by others
-by people: for example, a grandson bought a smart watch for his grandmother. For
-every smart watch can be customized
-home address, and a list of telephone numbers to which he should come
-notification in case of serious changes in the smart watch readings
-(for example - a sharp increase in heart rate)
+
+
+
