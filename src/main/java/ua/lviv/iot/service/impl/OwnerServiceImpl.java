@@ -34,6 +34,17 @@ public class OwnerServiceImpl implements OwnerService {
     }
     @Transactional
     @Override
+    public void ownerInsertion() {
+        ownerRepository.ownerInsertion();
+    }
+    @Transactional
+    @Override
+    public void createDatabasesForEachOwner() {
+        ownerRepository.createDatabasesForEachOwner();
+        
+    }
+    @Transactional
+    @Override
     public Owner save(Owner entity) {
         return ownerRepository.save(entity);
     }

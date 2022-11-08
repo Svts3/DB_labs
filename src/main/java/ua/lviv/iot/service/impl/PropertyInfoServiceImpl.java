@@ -29,6 +29,10 @@ public class PropertyInfoServiceImpl implements PropertyInfoService {
     }
 
     @Override
+    public void propertyInfoInsetion(Long ownerId, String serial_number) {
+        repository.propertyInfoInsetion(ownerId, serial_number);
+    }
+    @Override
     public PropertyInfo findById(Long id) {
         return repository.findById(id).orElseThrow(
                 () -> new PropertyInfoNotFoundException(PropertyInfoNotFoundException));

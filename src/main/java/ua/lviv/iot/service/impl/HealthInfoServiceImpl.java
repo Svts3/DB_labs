@@ -34,6 +34,11 @@ public class HealthInfoServiceImpl implements HealthInfoService {
     }
 
     @Override
+    public Integer printAverageHeartbeatRate() {
+        return repository.printAverageHeartbeatRate();
+    }
+
+    @Override
     public HealthInfo findById(Long id) {
         return repository.findById(id).orElseThrow(
                 () -> new HealthInfoNotFoundException(HEALTH_INFO_NOT_FOUND_EXCEPTION_MESSAGE));

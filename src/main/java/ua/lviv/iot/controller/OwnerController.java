@@ -32,7 +32,8 @@ public class OwnerController {
     private WatchDTOAssembler watchDTOAssembler;
 
     @Autowired
-    public OwnerController(OwnerService ownerService, OwnerDTOAssembler ownerDTOAssembler,WatchDTOAssembler watchDTOAssembler) {
+    public OwnerController(OwnerService ownerService, OwnerDTOAssembler ownerDTOAssembler,
+            WatchDTOAssembler watchDTOAssembler) {
         this.ownerService = ownerService;
         this.ownerDTOAssembler = ownerDTOAssembler;
         this.watchDTOAssembler = watchDTOAssembler;
@@ -50,6 +51,11 @@ public class OwnerController {
         Owner onwer = ownerService.findById(id);
         OwnerDTO ownerDTO = ownerDTOAssembler.toModel(onwer);
         return new ResponseEntity<>(ownerDTO, HttpStatus.OK);
+    }
+    @GetMapping("/db")
+    public ResponseEntity<OwnerDTO> createDatabasesForEachOwner() {
+        ownerService.createDatabasesForEachOwner();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/fname/{firstName}")
@@ -83,9 +89,15 @@ public class OwnerController {
         OwnerDTO dto = ownerDTOAssembler.toModel(owner2);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
+    @PostMapping("/ownerInsertion")
+    public ResponseEntity<OwnerDTO> insert10Owners() {
+        ownerService.ownerInsertion();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PutMapping("/{ownerId}")
-    public ResponseEntity<OwnerDTO> updateOwner(@PathVariable("ownerId") Long ownerId, @RequestBody Owner owner) {
+    public ResponseEntity<OwnerDTO> updateOwner(@PathVariable("ownerId") Long ownerId,
+            @RequestBody Owner owner) {
         Owner owner2 = ownerService.update(owner, ownerId);
         OwnerDTO dto = ownerDTOAssembler.toModel(owner2);
         return new ResponseEntity<>(dto, HttpStatus.OK);

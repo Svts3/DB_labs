@@ -22,6 +22,8 @@ import lombok.Setter;
 public class Country {
     @Id
     private String name;
+   
+    private String continent;
     
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Region>regions;

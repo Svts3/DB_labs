@@ -13,11 +13,8 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Relation(itemRelation = "country", collectionRelation = "countries")
-public class CountryDTO extends RepresentationModel<CountryDTO> {
+@Relation(itemRelation = "continent", collectionRelation = "continents")
+public class ContinentDTO extends RepresentationModel<ContinentDTO>{
 
-    private final String name;
-    
-    private final String continent;
-
+    private String name;
 }

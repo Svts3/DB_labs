@@ -1,7 +1,7 @@
 
-drop database if exists lab5;
-create database if not exists lab5;
-use lab5;
+drop database if exists lab6;
+create database if not exists lab6;
+use lab6;
 
 DROP TABLE IF EXISTS health_info;
 DROP TABLE IF EXISTS watch_location;
@@ -16,12 +16,33 @@ DROP TABLE IF EXISTS region;
 DROP TABLE IF EXISTS country;
 DROP TABLE IF EXISTS owner;
 DROP TABLE IF EXISTS country;
+DROP TABLE IF EXISTS continent;
+drop table if exists continent_delete_logger;
 
+
+create table continent_delete_logger(
+id int primary key auto_increment,
+continent varchar(40) not null,
+ deletion_time timestamp not null
+ )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+CREATE TABLE continent (
+    name VARCHAR(25) PRIMARY KEY
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
+
+INSERT INTO continent VALUES("Europe");
+INSERT INTO continent VALUES("North America");
+INSERT INTO continent VALUES("South America");
+INSERT INTO continent VALUES("Africa");
+INSERT INTO continent VALUES("Asia");
 
 
 
 CREATE TABLE country (
   `name` varchar(30) NOT NULL,
+  `continent_name` varchar(25) not null,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
