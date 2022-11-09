@@ -12,6 +12,7 @@ import ua.lviv.iot.model.Country;
 import ua.lviv.iot.model.Region;
 import ua.lviv.iot.repository.CountryRepository;
 import ua.lviv.iot.service.CountryService;
+
 @Service
 public class CountryServiceImpl implements CountryService {
 
@@ -28,6 +29,7 @@ public class CountryServiceImpl implements CountryService {
     public List<Country> findAll() {
         return countryRepository.findAll();
     }
+
     @Transactional
     @Override
     public Country save(Country entity) {
@@ -39,14 +41,16 @@ public class CountryServiceImpl implements CountryService {
         return countryRepository.findById(id).orElseThrow(
                 () -> new CountryNotFoundException(COUNTRY_NOT_FOUND_EXCEPTION_MESSAGE));
     }
+
     @Override
     public Country update(Country entity, String id) {
         Country country = findById(id);
-        countryRepository.deleteById(id);
         country.setName(entity.getName());
+        country.setContinent_name(entity.getContinent_name());
         country.setRegions(entity.getRegions());
         return countryRepository.save(country);
     }
+
     @Transactional
     @Override
     public Country deleteById(String id) {
@@ -58,7 +62,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<Region> findAllRegionsByCountryName(String countryName) {
-            Country country = findById(countryName);
+        Country country = findById(countryName);
         return country.getRegions();
     }
 

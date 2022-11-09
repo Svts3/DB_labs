@@ -6,6 +6,9 @@ drop trigger if exists min_cardinality_for_user_name;
 drop trigger if exists OWNER_FIRST_NAME_INSERTION_VALIDATION;
 drop trigger if exists log_continent_deletion;
 drop trigger if exists delete_continent_trigger;
+drop trigger if exists update_country_trigger;
+
+
 
 delimiter //
 CREATE TRIGGER create_country_trigger BEFORE INSERT ON country FOR EACH ROW
@@ -28,6 +31,14 @@ BEGIN
 	 	END IF; 
 end //
 DELIMITER //
+
+delimiter //
+CREATE TRIGGER update_country_trigger BEFORE update ON country FOR EACH ROW
+begin
+	IF(new.continent_name NOT IN (SELECT name from continent))THEN
+	SIGNAL SQLSTATE "45000" SET MESSAGE_TEXT = "Such continent name does not exist!";
+	end if;
+end//
 
 -- 3(A)
 CREATE TRIGGER WATCH_VALIDATION BEFORE INSERT ON Watch FOR EACH ROW
