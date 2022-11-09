@@ -1,19 +1,22 @@
 # DB_labs
 
-# Lab 5
+# Lab 6
 
-1. For the designed database, implement a Back-end project using the Spring Boot ecosystem (Spring Data JPA) in the form of a Maven project with a connection to MySQL. 
-2. Controllers should process requests for CRUD operations and return the necessary data in the form of DTO objects with links (web addresses), according to HATEOAS recommendations.
-3. Services must contain basic business logic for working with data
-4. If necessary, repositories can contain additional methods (automatically generated or with JPQL queries) for working with data.
-5. Implement client work with data through Swagger:
-  - data output from tables;
-  - inserting data into the table;
-  - updating data in tables.
-  - deleting data from the table;
-  - data output from the side of the M:1 connection, that is, for example, for each city, output the people who live in it;
-  - data output from the connection table of the M:M connection, that is, to output for each subject from one table all the subjects of the second table that are connected to it.
+Based on the previous work (back-end with Spring Boot), a number of software structures (triggers, procedures, functions, cursors) should be written for the existing  database. For stored procedures, ensure that they are called using backend controllers.
 
+- Add an additional arbitrary table to DB 1 and connect it to another existing table with a 1:M connection. However, to ensure value integrity, use triggers instead of a physical foreign key.
+## Stored procedures:
+- Provide parameterized insertion of new values ​​into an arbitrary table.
+- To ensure the implementation of M:M connection between 2 tables, i.e. to insert into the connecting table the corresponding tape according to the real-existing values ​​(eg surname, name) in these main tables.
+- Create a package that inserts 10 tapes into an arbitrary DB table in the format <Noname+No>, for example: Noname5, Noname6, Noname7, etc.
+- Write a custom function that will search for Max, Min, Sum or Avg for a column of an arbitrary table in the database. Write a procedure that will call this function in SELECT.
+- Write 1 procedure with a cursor to perform one of the following tasks: 
+  - Using a cursor, ensure dynamic creation of databases with names taken from a column from an arbitrary table of the current database, with a random number of tables for each database (from 1 to 9). The structure of the tables is arbitrary. The names of the tables correspond to the name of the database with a serial number from 1 to 9.
+
+- Write triggers for the tables of the current database:
+  - The value of a certain column cannot end with two zeros
+  - Create a log table in which to keep logs with a time stamp when data is deleted for a certain table
+  - Only the following names are allowed for a given column: 'Svitlana', 'Petro', 'Olha', 'Taras'.
 
 
 
