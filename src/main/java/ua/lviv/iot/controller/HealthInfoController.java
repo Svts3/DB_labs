@@ -49,6 +49,11 @@ public class HealthInfoController {
         return new ResponseEntity<>(collectionModel, HttpStatus.OK);
     }
 
+    @GetMapping("/getAvgHrtRate")
+    public ResponseEntity<Integer> getAverageHeartbeatRate() {
+        return new ResponseEntity<>(healthInfoService.getAverageHeartbeatRate(), HttpStatus.OK);
+    }
+
     @PostMapping("/")
     public ResponseEntity<HealthInfoDTO> addHealthInfo(@RequestBody HealthInfo healthInfo) {
         HealthInfo healthInfo2 = healthInfoService.save(healthInfo);
@@ -57,7 +62,8 @@ public class HealthInfoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HealthInfoDTO> updateHealthInfo(@PathVariable("id") Long id, @RequestBody HealthInfo healthInfo) {
+    public ResponseEntity<HealthInfoDTO> updateHealthInfo(@PathVariable("id") Long id,
+            @RequestBody HealthInfo healthInfo) {
         HealthInfo healthInfo2 = healthInfoService.update(healthInfo, id);
         HealthInfoDTO collectionModel = healthInfoDTOAssembler.toModel(healthInfo2);
         return new ResponseEntity<>(collectionModel, HttpStatus.OK);

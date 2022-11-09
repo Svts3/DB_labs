@@ -18,7 +18,7 @@ public class CountryDTOAssembler implements RepresentationModelAssembler<Country
     @Override
     public CountryDTO toModel(Country entity) {
         CountryDTO dto = CountryDTO.builder().name(entity.getName())
-                .continent(entity.getContinent()).build();
+                .continent(entity.getContinent_name()).build();
         Link selfLink = linkTo(methodOn(CountryController.class).findById(entity.getName()))
                 .withSelfRel();
         Link regionLink = linkTo(

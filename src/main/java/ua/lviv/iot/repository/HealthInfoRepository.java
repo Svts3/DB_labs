@@ -10,5 +10,5 @@ import ua.lviv.iot.model.HealthInfo;
 public interface HealthInfoRepository extends JpaRepository<HealthInfo, Long>{
 
     @Procedure(procedureName = "print_average_heartbeat_rate")
-    Integer printAverageHeartbeatRate();
+    Integer getAverageHeartbeatRate();
 }

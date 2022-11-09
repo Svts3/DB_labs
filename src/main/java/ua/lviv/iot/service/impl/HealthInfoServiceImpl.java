@@ -32,10 +32,10 @@ public class HealthInfoServiceImpl implements HealthInfoService {
     public HealthInfo save(HealthInfo entity) {
         return repository.save(entity);
     }
-
+    @Transactional
     @Override
-    public Integer printAverageHeartbeatRate() {
-        return repository.printAverageHeartbeatRate();
+    public Integer getAverageHeartbeatRate() {
+        return repository.getAverageHeartbeatRate();
     }
 
     @Override

@@ -3,9 +3,9 @@ use lab6;
 drop procedure if exists continentInsertion;
 drop procedure if exists propertyInfoInsetion;
 drop procedure if exists ownerInsertion;
-drop function if exists find_average_heartbeat_rate;
-drop procedure if exists print_average_heartbeat_rate;
-drop procedure if exists create_databases_for_each_owner;
+drop function if exists FIND_AVERAGE_HEARTBEAT_RATE;
+drop procedure if exists PRINT_AVERAGE_HEARTBEAT_RATE;
+drop PROCEDURE if exists CREATE_DATABASES_FOR_EACH_OWNER;
 
 
 
@@ -46,7 +46,7 @@ begin
 end //
 Delimiter //
 
-CREATE FUNCTION find_average_heartbeat_rate(
+CREATE FUNCTION FIND_AVERAGE_HEARTBEAT_RATE(
 
 )RETURNS int deterministic
 begin
@@ -56,15 +56,16 @@ end //
 
 Delimiter //
 
-CREATE PROCEDURE print_average_heartbeat_rate(
-
+CREATE PROCEDURE PRINT_AVERAGE_HEARTBEAT_RATE(
+ out average_heartbeat_rate int
 )
 begin
-	select FIND_AVERAGE_HEARTBEAT_RATE();
+ set average_heartbeat_rate = FIND_AVERAGE_HEARTBEAT_RATE();
+	select average_heartbeat_rate;
 end //
 
 DELIMITER //
-CREATE PROCEDURE create_databases_for_each_owner()
+CREATE PROCEDURE CREATE_DATABASES_FOR_EACH_OWNER()
 BEGIN
 
 DECLARE done int DEFAULT false;

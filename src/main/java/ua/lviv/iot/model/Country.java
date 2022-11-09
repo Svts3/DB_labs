@@ -23,7 +23,7 @@ public class Country {
     @Id
     private String name;
    
-    private String continent;
+    private String continent_name;
     
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Region>regions;

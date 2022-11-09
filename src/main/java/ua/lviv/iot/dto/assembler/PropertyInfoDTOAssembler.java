@@ -18,12 +18,13 @@ public class PropertyInfoDTOAssembler
 
     @Override
     public PropertyInfoDTO toModel(PropertyInfo entity) {
-        PropertyInfoDTO dto = PropertyInfoDTO.builder().id(entity.getId()).ownerId(entity.getId())
+        PropertyInfoDTO dto = PropertyInfoDTO.builder().id(entity.getId())
+                .ownerId(entity.getOwner().getId())
                 .watchSerialNumber(entity.getWatch().getSerialNumber()).build();
         Link selfLink = linkTo(methodOn(PropertyInfoController.class).findById(entity.getId()))
                 .withSelfRel();
         dto.add(selfLink);
-        return null;
+        return dto;
     }
 
     @Override

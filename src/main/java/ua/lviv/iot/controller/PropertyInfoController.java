@@ -1,7 +1,6 @@
 package ua.lviv.iot.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -61,7 +60,8 @@ public class PropertyInfoController {
     public ResponseEntity<PropertyInfoDTO> insertPropertyInfo(@RequestBody PropertyInfo info) {
         propertyInfoService.propertyInfoInsetion(info.getOwner().getId(),
                 info.getWatch().getSerialNumber());
-        return new ResponseEntity<>(HttpStatus.OK);
+        PropertyInfoDTO propertyInfoDTO = propertyInfoDTOAssembler.toModel(info);
+        return new ResponseEntity<>(propertyInfoDTO, HttpStatus.OK);
     }
 
     @PutMapping("/{propertyInfoId}")
