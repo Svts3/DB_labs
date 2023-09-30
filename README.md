@@ -1,22 +1,32 @@
 # DB_labs
 
-# lab1
+# Lab 6
 
-- Create a database (DB).
-- In this database, create a scheme with a name that corresponds to the student's last name. All newly created objects must belong to this schema.
-- Build all necessary objects (tables, primary keys, secondary keys, external keys, indexes, check constraints) for the specified database.
-- Enter at least 10 abstract records in each database table (if the number of course not limited to logic).
-- Create a diagram for a fully designed database. Tables should be displayed on chart in standard mode (columnname, datatype, allow null) Relationships between adjust the tables in such a way as to indicate between which columns they are establish a connection. Designation: P.K. – primary key; U.I. – unique index; I. – non-unique index; CHECK is a check constraint.
+Based on the previous work (back-end with Spring Boot), a number of software structures (triggers, procedures,
+functions, cursors) should be written for the existing database. For stored procedures, ensure that they are called
+using backend controllers.
 
-# Variant 43
-Create a relational database schema that allows you to store data
-about the owner of the smart watch, the location of the watch (gps
-coordinates), charge of the watch, heartbeat of the owner of the watch
-(information is sent every minute)). One owner can have
-several clocks, or several clocks may be
-registered to one owner and used by others
-by people: for example, a grandson bought a smart watch for his grandmother. For
-every smart watch can be customized
-home address, and a list of telephone numbers to which he should come
-notification in case of serious changes in the smart watch readings
-(for example - a sharp increase in heart rate)
+- Add an additional arbitrary table to DB 1 and connect it to another existing table with a 1:M connection. However, to
+  ensure value integrity, use triggers instead of a physical foreign key.
+
+## Stored procedures:
+
+- Provide parameterized insertion of new values ​​into an arbitrary table.
+- To ensure the implementation of M:M connection between 2 tables, i.e. to insert into the connecting table the
+  corresponding tape according to the real-existing values ​​(eg surname, name) in these main tables.
+- Create a package that inserts 10 tapes into an arbitrary DB table in the format <Noname+No>, for example: Noname5,
+  Noname6, Noname7, etc.
+- Write a custom function that will search for Max, Min, Sum or Avg for a column of an arbitrary table in the database.
+  Write a procedure that will call this function in SELECT.
+- Write 1 procedure with a cursor to perform one of the following tasks:
+    - Using a cursor, ensure dynamic creation of databases with names taken from a column from an arbitrary table of the
+      current database, with a random number of tables for each database (from 1 to 9). The structure of the tables is
+      arbitrary. The names of the tables correspond to the name of the database with a serial number from 1 to 9.
+
+- Write triggers for the tables of the current database:
+    - The value of a certain column cannot end with two zeros
+    - Create a log table in which to keep logs with a time stamp when data is deleted for a certain table
+    - Only the following names are allowed for a given column: 'Svitlana', 'Petro', 'Olha', 'Taras'.
+
+
+
