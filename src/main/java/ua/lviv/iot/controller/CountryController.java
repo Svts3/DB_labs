@@ -1,21 +1,10 @@
 package ua.lviv.iot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import ua.lviv.iot.dto.CountryDTO;
 import ua.lviv.iot.dto.RegionDTO;
 import ua.lviv.iot.dto.assembler.CountryDTOAssembler;
@@ -23,6 +12,8 @@ import ua.lviv.iot.dto.assembler.RegionDTOAssembler;
 import ua.lviv.iot.model.Country;
 import ua.lviv.iot.model.Region;
 import ua.lviv.iot.service.CountryService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/country")
@@ -34,7 +25,7 @@ public class CountryController {
 
     @Autowired
     public CountryController(CountryService countryService, CountryDTOAssembler countryDTOAssembler,
-            RegionDTOAssembler regionDTOAssembler) {
+                             RegionDTOAssembler regionDTOAssembler) {
         this.countryService = countryService;
         this.countryDTOAssembler = countryDTOAssembler;
         this.regionDTOAssembler = regionDTOAssembler;
@@ -73,7 +64,7 @@ public class CountryController {
 
     @PutMapping("/{coutryName}")
     public ResponseEntity<CountryDTO> updateCountry(@PathVariable("coutryName") String coutryName,
-            @RequestBody Country country) {
+                                                    @RequestBody Country country) {
         Country country2 = countryService.update(country, coutryName);
         CountryDTO countryDTO = countryDTOAssembler.toModel(country2);
         return new ResponseEntity<CountryDTO>(countryDTO, HttpStatus.OK);

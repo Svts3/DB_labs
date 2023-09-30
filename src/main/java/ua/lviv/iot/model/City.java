@@ -1,17 +1,13 @@
 package ua.lviv.iot.model;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,17 +16,13 @@ import lombok.Setter;
 public class City {
     @Id
     private String name;
-    
+
     @ManyToOne
     @JoinColumn(name = "region_name", referencedColumnName = "name", nullable = false)
     private Region region;
-    
+
     @OneToMany(mappedBy = "city")
-    private List<Street>streets;
-    
-    
-    
-    
-    
+    private List<Street> streets;
+
 
 }

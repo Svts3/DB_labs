@@ -1,8 +1,8 @@
 package ua.lviv.iot.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

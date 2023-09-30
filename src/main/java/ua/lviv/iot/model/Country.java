@@ -1,17 +1,12 @@
 package ua.lviv.iot.model;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "country")
@@ -22,9 +17,9 @@ import lombok.Setter;
 public class Country {
     @Id
     private String name;
-   
+
     private String continent_name;
-    
+
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
-    private List<Region>regions;
+    private List<Region> regions;
 }

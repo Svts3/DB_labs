@@ -1,24 +1,16 @@
 package ua.lviv.iot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import ua.lviv.iot.dto.StreetDTO;
 import ua.lviv.iot.dto.assembler.StreetDTOAssembler;
 import ua.lviv.iot.model.Street;
 import ua.lviv.iot.service.StreetService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/street")
@@ -56,7 +48,7 @@ public class StreetController {
 
     @PutMapping("/{streetName}")
     public ResponseEntity<StreetDTO> updateStreet(@PathVariable("streetName") String streetName,
-            @RequestBody Street street) {
+                                                  @RequestBody Street street) {
         Street street2 = streetService.update(street, streetName);
         StreetDTO dto = streetDTOAssembler.toModel(street2);
         return new ResponseEntity<>(dto, HttpStatus.OK);
@@ -67,7 +59,7 @@ public class StreetController {
         Street street2 = streetService.deleteById(streetName);
         StreetDTO dto = streetDTOAssembler.toModel(street2);
         return new ResponseEntity<>(dto, HttpStatus.OK);
-        
+
     }
 
 }

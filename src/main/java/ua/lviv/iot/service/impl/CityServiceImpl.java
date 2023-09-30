@@ -1,17 +1,16 @@
 package ua.lviv.iot.service.impl;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.lviv.iot.exception.CityNotFoundException;
 import ua.lviv.iot.model.City;
 import ua.lviv.iot.model.Street;
 import ua.lviv.iot.repository.CityRepository;
 import ua.lviv.iot.service.CityService;
+
+import java.util.List;
+
 @Service
 public class CityServiceImpl implements CityService {
 
@@ -28,6 +27,7 @@ public class CityServiceImpl implements CityService {
     public List<City> findAll() {
         return repository.findAll();
     }
+
     @Transactional
     @Override
     public City save(City entity) {
@@ -49,6 +49,7 @@ public class CityServiceImpl implements CityService {
         entity.setStreets(entity.getStreets());
         return repository.save(entity);
     }
+
     @Transactional
     @Override
     public City deleteById(String id) {

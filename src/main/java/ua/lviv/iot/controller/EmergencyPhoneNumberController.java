@@ -1,24 +1,16 @@
 package ua.lviv.iot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import ua.lviv.iot.dto.EmergencyPhoneNumberDTO;
 import ua.lviv.iot.dto.assembler.EmergencyPhoneNumberDTOAssembler;
 import ua.lviv.iot.model.EmergencyPhoneNumber;
 import ua.lviv.iot.service.EmergencyPhoneNumberService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/emergencyPhoneNumber")
@@ -29,7 +21,7 @@ public class EmergencyPhoneNumberController {
 
     @Autowired
     public EmergencyPhoneNumberController(EmergencyPhoneNumberService phoneNumberService,
-            EmergencyPhoneNumberDTOAssembler emergencyPhoneNumberDTOAssembler) {
+                                          EmergencyPhoneNumberDTOAssembler emergencyPhoneNumberDTOAssembler) {
         this.phoneNumberService = phoneNumberService;
         this.emergencyPhoneNumberDTOAssembler = emergencyPhoneNumberDTOAssembler;
     }
@@ -63,7 +55,7 @@ public class EmergencyPhoneNumberController {
 
     @PutMapping("/{id}")
     public ResponseEntity<EmergencyPhoneNumberDTO> updatePhoneNumber(@PathVariable("id") Long id,
-            @RequestBody EmergencyPhoneNumber emergencyPhoneNumber) {
+                                                                     @RequestBody EmergencyPhoneNumber emergencyPhoneNumber) {
 
         EmergencyPhoneNumber emergencyPhoneNumber2 = phoneNumberService.update(emergencyPhoneNumber,
                 id);

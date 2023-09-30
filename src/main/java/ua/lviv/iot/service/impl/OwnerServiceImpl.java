@@ -1,13 +1,8 @@
 package ua.lviv.iot.service.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
-
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.lviv.iot.exception.OwnerNotFoundException;
 import ua.lviv.iot.model.Owner;
 import ua.lviv.iot.model.PropertyInfo;
@@ -15,6 +10,10 @@ import ua.lviv.iot.model.Watch;
 import ua.lviv.iot.repository.OwnerRepository;
 import ua.lviv.iot.repository.PropertyInfoRepository;
 import ua.lviv.iot.service.OwnerService;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class OwnerServiceImpl implements OwnerService {
 
@@ -27,22 +26,25 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Autowired
     public OwnerServiceImpl(OwnerRepository ownerRepository,
-            PropertyInfoRepository propertyInfoRepository) {
+                            PropertyInfoRepository propertyInfoRepository) {
         super();
         this.ownerRepository = ownerRepository;
         this.propertyInfoRepository = propertyInfoRepository;
     }
+
     @Transactional
     @Override
     public void ownerInsertion() {
         ownerRepository.ownerInsertion();
     }
+
     @Transactional
     @Override
     public void createDatabasesForEachOwner() {
         ownerRepository.createDatabasesForEachOwner();
-        
+
     }
+
     @Transactional
     @Override
     public Owner save(Owner entity) {
@@ -59,6 +61,7 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerRepository.findById(id)
                 .orElseThrow(() -> new OwnerNotFoundException(OWNER_NOT_FOUND_EXCEPTION_MESSAGE));
     }
+
     @Transactional
     @Override
     public Owner update(Owner entity, Long id) {
@@ -71,6 +74,7 @@ public class OwnerServiceImpl implements OwnerService {
         owner.setPropertyInfos(entity.getPropertyInfos());
         return ownerRepository.save(owner);
     }
+
     @Transactional
     @Override
     public Owner deleteById(Long id) {
@@ -97,6 +101,17 @@ public class OwnerServiceImpl implements OwnerService {
                 .collect(Collectors.toList());
 
         return watches;
+    }
+
+    @Override
+    public Boolean existsByEmail(String email) {
+        return ownerRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Owner findByEmail(String email) {
+        return ownerRepository.findByEmail(email).orElseThrow(
+                () -> new OwnerNotFoundException(String.format("Owner [%s] was not found!", email)));
     }
 
 }

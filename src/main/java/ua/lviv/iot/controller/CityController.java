@@ -1,27 +1,20 @@
 package ua.lviv.iot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import ua.lviv.iot.dto.CityDTO;
 import ua.lviv.iot.dto.StreetDTO;
 import ua.lviv.iot.dto.assembler.CityDTOAssembler;
 import ua.lviv.iot.dto.assembler.StreetDTOAssembler;
+import ua.lviv.iot.exception.RoleNotFoundException;
 import ua.lviv.iot.model.City;
 import ua.lviv.iot.model.Street;
 import ua.lviv.iot.service.CityService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/city")
@@ -33,7 +26,7 @@ public class CityController {
 
     @Autowired
     public CityController(CityService cityService, CityDTOAssembler cityDTOAssembler,
-            StreetDTOAssembler streetDTOAssembler) {
+                          StreetDTOAssembler streetDTOAssembler) {
         this.cityService = cityService;
         this.cityDTOAssembler = cityDTOAssembler;
         this.streetDTOAssembler = streetDTOAssembler;
@@ -71,7 +64,7 @@ public class CityController {
 
     @PutMapping("/{cityName}")
     public ResponseEntity<CityDTO> updateCity(@PathVariable("cityName") String cityName,
-            @RequestBody City city) {
+                                              @RequestBody City city) {
         City city2 = cityService.update(city, cityName);
         CityDTO cityDTO = cityDTOAssembler.toModel(city2);
         return new ResponseEntity<CityDTO>(cityDTO, HttpStatus.OK);

@@ -1,17 +1,15 @@
 package ua.lviv.iot.service.impl;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.lviv.iot.exception.CountryNotFoundException;
 import ua.lviv.iot.model.Country;
 import ua.lviv.iot.model.Region;
 import ua.lviv.iot.repository.CountryRepository;
 import ua.lviv.iot.service.CountryService;
+
+import java.util.List;
 
 @Service
 public class CountryServiceImpl implements CountryService {

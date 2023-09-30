@@ -1,24 +1,16 @@
 package ua.lviv.iot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import ua.lviv.iot.dto.WatchLocationDTO;
 import ua.lviv.iot.dto.assembler.WatchLocationDTOAssembler;
 import ua.lviv.iot.model.WatchLocation;
 import ua.lviv.iot.service.WatchLocationService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/watchLocation")
@@ -29,7 +21,7 @@ public class WatchLocationController {
 
     @Autowired
     public WatchLocationController(WatchLocationService watchLocationService,
-            WatchLocationDTOAssembler watchLocationDTOAssembler) {
+                                   WatchLocationDTOAssembler watchLocationDTOAssembler) {
         this.watchLocationService = watchLocationService;
         this.watchLocationDTOAssembler = watchLocationDTOAssembler;
     }
@@ -60,7 +52,7 @@ public class WatchLocationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<WatchLocationDTO> updateOwner(@PathVariable("id") Long id,
-            @RequestBody WatchLocation watchLocation) {
+                                                        @RequestBody WatchLocation watchLocation) {
 
         WatchLocation watchLocation2 = watchLocationService.update(watchLocation, id);
         WatchLocationDTO watchLocationDTO = watchLocationDTOAssembler.toModel(watchLocation2);

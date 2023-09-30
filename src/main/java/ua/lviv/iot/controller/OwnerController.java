@@ -1,20 +1,10 @@
 package ua.lviv.iot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import ua.lviv.iot.dto.OwnerDTO;
 import ua.lviv.iot.dto.WatchDTO;
 import ua.lviv.iot.dto.assembler.OwnerDTOAssembler;
@@ -22,6 +12,8 @@ import ua.lviv.iot.dto.assembler.WatchDTOAssembler;
 import ua.lviv.iot.model.Owner;
 import ua.lviv.iot.model.Watch;
 import ua.lviv.iot.service.OwnerService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/owner")
@@ -33,7 +25,7 @@ public class OwnerController {
 
     @Autowired
     public OwnerController(OwnerService ownerService, OwnerDTOAssembler ownerDTOAssembler,
-            WatchDTOAssembler watchDTOAssembler) {
+                           WatchDTOAssembler watchDTOAssembler) {
         this.ownerService = ownerService;
         this.ownerDTOAssembler = ownerDTOAssembler;
         this.watchDTOAssembler = watchDTOAssembler;
@@ -52,6 +44,7 @@ public class OwnerController {
         OwnerDTO ownerDTO = ownerDTOAssembler.toModel(onwer);
         return new ResponseEntity<>(ownerDTO, HttpStatus.OK);
     }
+
     @GetMapping("/db")
     public ResponseEntity<OwnerDTO> createDatabasesForEachOwner() {
         ownerService.createDatabasesForEachOwner();
@@ -89,6 +82,7 @@ public class OwnerController {
         OwnerDTO dto = ownerDTOAssembler.toModel(owner2);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
+
     @PostMapping("/ownerInsertion")
     public ResponseEntity<OwnerDTO> insert10Owners() {
         ownerService.ownerInsertion();
@@ -97,7 +91,7 @@ public class OwnerController {
 
     @PutMapping("/{ownerId}")
     public ResponseEntity<OwnerDTO> updateOwner(@PathVariable("ownerId") Long ownerId,
-            @RequestBody Owner owner) {
+                                                @RequestBody Owner owner) {
         Owner owner2 = ownerService.update(owner, ownerId);
         OwnerDTO dto = ownerDTOAssembler.toModel(owner2);
         return new ResponseEntity<>(dto, HttpStatus.OK);

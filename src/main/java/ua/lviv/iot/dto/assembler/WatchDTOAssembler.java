@@ -1,16 +1,15 @@
 package ua.lviv.iot.dto.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-
 import ua.lviv.iot.controller.WatchController;
 import ua.lviv.iot.dto.WatchDTO;
 import ua.lviv.iot.model.Watch;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class WatchDTOAssembler implements RepresentationModelAssembler<Watch, WatchDTO> {
@@ -38,7 +37,7 @@ public class WatchDTOAssembler implements RepresentationModelAssembler<Watch, Wa
     }
 
     public CollectionModel<WatchDTO> toCollectionModel(Iterable<? extends Watch> entities,
-            Link link) {
+                                                       Link link) {
         CollectionModel<WatchDTO> watchDTOs = RepresentationModelAssembler.super.toCollectionModel(
                 entities);
         watchDTOs.add(link);

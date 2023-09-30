@@ -1,24 +1,16 @@
 package ua.lviv.iot.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import ua.lviv.iot.dto.ContinentDTO;
 import ua.lviv.iot.dto.assembler.ContinentDTOAssembler;
 import ua.lviv.iot.model.Continent;
 import ua.lviv.iot.service.ContinentService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/continent")
@@ -29,7 +21,7 @@ public class ContinentController {
 
     @Autowired
     public ContinentController(ContinentService continentService,
-            ContinentDTOAssembler continentDTOAssembler) {
+                               ContinentDTOAssembler continentDTOAssembler) {
         this.continentService = continentService;
         this.continentDTOAssembler = continentDTOAssembler;
     }
@@ -61,7 +53,7 @@ public class ContinentController {
 
     @PutMapping("/{name}")
     public ResponseEntity<ContinentDTO> updateContinent(@PathVariable("name") String name,
-            @RequestBody Continent continent) {
+                                                        @RequestBody Continent continent) {
         Continent continent2 = continentService.update(continent, name);
         ContinentDTO continentDTO = continentDTOAssembler.toModel(continent2);
 

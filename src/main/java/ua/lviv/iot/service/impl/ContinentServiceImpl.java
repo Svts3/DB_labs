@@ -1,14 +1,13 @@
 package ua.lviv.iot.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.lviv.iot.exception.ContinentNotFoundException;
 import ua.lviv.iot.model.Continent;
 import ua.lviv.iot.repository.ContinentRepository;
 import ua.lviv.iot.service.ContinentService;
+
+import java.util.List;
 
 @Service
 public class ContinentServiceImpl implements ContinentService {
@@ -55,7 +54,7 @@ public class ContinentServiceImpl implements ContinentService {
 
     @Override
     public void continentInsertion(String name) {
-         continentRepository.continentInsertion(name);
+        continentRepository.continentInsertion(name);
     }
 
 }

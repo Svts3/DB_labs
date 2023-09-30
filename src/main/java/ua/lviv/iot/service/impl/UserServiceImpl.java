@@ -1,16 +1,15 @@
 package ua.lviv.iot.service.impl;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.lviv.iot.exception.UserNotFoundException;
 import ua.lviv.iot.model.User;
 import ua.lviv.iot.repository.UserRepository;
 import ua.lviv.iot.service.UserService;
+
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,6 +26,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return repository.findAll();
     }
+
     @Transactional
     @Override
     public User save(User entity) {
@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
         return repository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_EXCEPTION_MESSAGE));
     }
+
     @Transactional
     @Override
     public User update(User entity, Long id) {
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
         user.setPropertyInfo(entity.getPropertyInfo());
         return repository.save(user);
     }
+
     @Transactional
     @Override
     public User deleteById(Long id) {

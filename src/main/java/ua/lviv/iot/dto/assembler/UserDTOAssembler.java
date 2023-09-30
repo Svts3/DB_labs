@@ -1,17 +1,16 @@
 package ua.lviv.iot.dto.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-
 import ua.lviv.iot.controller.OwnerController;
 import ua.lviv.iot.controller.UserController;
 import ua.lviv.iot.dto.UserDTO;
 import ua.lviv.iot.model.User;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class UserDTOAssembler implements RepresentationModelAssembler<User, UserDTO> {
@@ -42,7 +41,7 @@ public class UserDTOAssembler implements RepresentationModelAssembler<User, User
     }
 
     public CollectionModel<UserDTO> toCollectionModel(Iterable<? extends User> entities,
-            Link link) {
+                                                      Link link) {
         CollectionModel<UserDTO> userDTOs = RepresentationModelAssembler.super.toCollectionModel(
                 entities);
         userDTOs.add(link);

@@ -1,27 +1,25 @@
 package ua.lviv.iot.service.impl;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ua.lviv.iot.exception.RegionNotFoundException;
 import ua.lviv.iot.model.City;
 import ua.lviv.iot.model.Region;
 import ua.lviv.iot.repository.RegionRepository;
 import ua.lviv.iot.service.RegionService;
 
+import java.util.List;
+
 @Service
-public class RegionServiceimpl implements RegionService {
+public class RegionServiceImpl implements RegionService {
 
     private static final String REGION_NOT_FOUND_EXCEPTION_MESSAGE = "Region was not found!";
 
     private RegionRepository repository;
 
     @Autowired
-    public RegionServiceimpl(RegionRepository repository) {
+    public RegionServiceImpl(RegionRepository repository) {
         this.repository = repository;
     }
 

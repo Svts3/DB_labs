@@ -1,16 +1,15 @@
 package ua.lviv.iot.dto.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-
 import ua.lviv.iot.controller.CountryController;
 import ua.lviv.iot.dto.CountryDTO;
 import ua.lviv.iot.model.Country;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class CountryDTOAssembler implements RepresentationModelAssembler<Country, CountryDTO> {
@@ -39,7 +38,7 @@ public class CountryDTOAssembler implements RepresentationModelAssembler<Country
     }
 
     public CollectionModel<CountryDTO> toCollectionModel(Iterable<? extends Country> entities,
-            Link link) {
+                                                         Link link) {
         CollectionModel<CountryDTO> countryDTOs = RepresentationModelAssembler.super.toCollectionModel(
                 entities);
         countryDTOs.add(link);

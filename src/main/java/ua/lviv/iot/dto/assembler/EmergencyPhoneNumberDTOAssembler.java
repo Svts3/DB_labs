@@ -1,17 +1,16 @@
 package ua.lviv.iot.dto.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-
 import ua.lviv.iot.controller.EmergencyPhoneNumberController;
 import ua.lviv.iot.controller.HealthInfoController;
 import ua.lviv.iot.dto.EmergencyPhoneNumberDTO;
 import ua.lviv.iot.model.EmergencyPhoneNumber;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class EmergencyPhoneNumberDTOAssembler
@@ -37,7 +36,7 @@ public class EmergencyPhoneNumberDTOAssembler
     }
 
     public CollectionModel<EmergencyPhoneNumberDTO> toCollectionModel(Iterable<? extends EmergencyPhoneNumber> entities,
-            Link link) {
+                                                                      Link link) {
         CollectionModel<EmergencyPhoneNumberDTO> emergencyPhoneNumberDTOs = RepresentationModelAssembler.super.toCollectionModel(
                 entities);
         emergencyPhoneNumberDTOs.add(link);
